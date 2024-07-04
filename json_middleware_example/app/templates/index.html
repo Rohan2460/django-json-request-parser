@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h2>Send JSON Data</h2>
+        <p>JSON Data:</p>
+        <input type="text" id="json_data" value='{"data": "client data"}' />
+        <button onclick="sendData()">Send</button>
+        <br />
+        <p>Status: <span id="status"></span></p>
+        {% csrf_token %}
+    </body>
+
+    <script>
+        async function sendData() {
+            const url = "{{ request.path }}";
+            const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+            let json_string = document.querySelector("#json_data").value;
+            console.log(json_string);
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken,
+                },
+                body: json_string,
+            });
+
+            let json_response = await response.text();
+            console.log(json_response);
+            document.querySelector("#status").innerHTML = response.statusText + "<br>" + json_response;
+        }
+    </script>
+</html>
