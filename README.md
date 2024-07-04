@@ -1,7 +1,8 @@
 # JSON request parser middleware for Django
 
 Simple Django middleware for parsing JSON data from HTTP request.
-If the Content-Type of a POST request is "application/json", the JSON data is parsed and stored in the `HttpRequest.json` attribute.
+
+If the Content-Type of a POST request is `application/json`, the JSON data is parsed and stored in the `HttpRequest.json` attribute.
 
 ## HttpRequest.json Data Types
 
